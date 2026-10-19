@@ -25,7 +25,27 @@ documents how to connect to it.
 
 ## Connect
 
-### Claude Desktop / Cursor
+### Ask your AI agent
+
+Agents that can edit their own configuration (Claude Code, Cursor, Codex, Windsurf) can add
+the server themselves. Paste this and replace the key:
+
+```text
+Add the AppTrack Ninja MCP server to this tool.
+Endpoint: https://api.apptrack.ninja/mcp (Streamable HTTP)
+Send this header with every request: Authorization: Bearer ninja_your_key
+Setup guide: https://github.com/sulubeyn/apptrack-ninja-mcp
+```
+
+### Claude Code
+
+```bash
+claude mcp add --transport http apptrack https://api.apptrack.ninja/mcp --header "Authorization: Bearer ninja_your_key"
+```
+
+### Cursor
+
+`~/.cursor/mcp.json`, or `.cursor/mcp.json` in a project:
 
 ```json
 {
@@ -38,11 +58,33 @@ documents how to connect to it.
 }
 ```
 
-### Claude Code
+### VS Code (GitHub Copilot)
 
-```bash
-claude mcp add --transport http apptrack https://api.apptrack.ninja/mcp --header "Authorization: Bearer ninja_your_key"
+`.vscode/mcp.json` in your workspace:
+
+```json
+{
+  "servers": {
+    "apptrack": {
+      "type": "http",
+      "url": "https://api.apptrack.ninja/mcp",
+      "headers": { "Authorization": "Bearer ninja_your_key" }
+    }
+  }
+}
 ```
+
+### Other clients
+
+Any client that supports remote MCP servers with custom headers:
+
+- URL: `https://api.apptrack.ninja/mcp`
+- Transport: Streamable HTTP
+- Header: `Authorization: Bearer ninja_your_key`. Gateways that reserve `Authorization`
+  can send the key in `X-Api-Key` instead.
+
+Claude Desktop and claude.ai custom connectors only accept OAuth or unauthenticated
+servers, so they cannot use an AppTrack Ninja key yet.
 
 ## Tools
 
