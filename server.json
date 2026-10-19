@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.sulubeyn/apptrack-ninja-mcp",
+  "title": "AppTrack Ninja",
+  "description": "App Store intelligence: search iOS apps, charts, publishers and ASO keyword tracking.",
+  "websiteUrl": "https://apptrack.ninja",
+  "repository": {
+    "url": "https://github.com/sulubeyn/apptrack-ninja-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.apptrack.ninja/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer <key>. Create a key at https://apptrack.ninja/account?tab=mcp (Pro plan).",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
