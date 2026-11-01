@@ -13,13 +13,15 @@ documents how to connect to it.
 |---|---|
 | Endpoint | `https://api.apptrack.ninja/mcp` |
 | Transport | Streamable HTTP |
-| Auth | `Authorization: Bearer <key>` |
-| Plan | AppTrack Ninja Pro |
-| Rate limits | 600 reads and 30 searches per minute, per key |
+| Auth | OAuth sign-in, or `Authorization: Bearer <key>` |
+| Plans | Free: one key, 25 calls a day, 10 a minute, 10 results per list · Pro: three keys, 600 reads and 30 searches a minute, full result pages |
 
 ## Get a key
 
-1. Sign in at [apptrack.ninja](https://apptrack.ninja) and start Pro.
+Clients with OAuth (Claude, Claude Code, VS Code, Cursor, Windsurf, Codex, Gemini CLI) open the
+AppTrack Ninja sign-in on first use; no key needed. For other clients:
+
+1. Sign in at [apptrack.ninja](https://apptrack.ninja) (free plan works; Pro lifts the limits).
 2. Open **Account → MCP / IDE** ([direct link](https://apptrack.ninja/account?tab=mcp)).
 3. Create a key. It is shown once; keys start with `ninja_`.
 
@@ -83,17 +85,21 @@ Any client that supports remote MCP servers with custom headers:
 - Header: `Authorization: Bearer ninja_your_key`. Gateways that reserve `Authorization`
   can send the key in `X-Api-Key` instead.
 
-Claude Desktop and claude.ai custom connectors only accept OAuth or unauthenticated
-servers, so they cannot use an AppTrack Ninja key yet.
+Claude Desktop and claude.ai custom connectors: add `https://api.apptrack.ninja/mcp` as a custom
+connector and sign in with AppTrack Ninja when asked (OAuth).
 
 ## Tools
 
 | Tool | What it does |
 |---|---|
-| `search_apps` | Full-text App Store search |
-| `find_apps` | Filtered app search: genre, price, rating, sort order |
-| `get_app` | App detail: description, screenshots, version history |
+| `search_apps` | Plain-language App Store search (developer country, genre, dates, ratings are read from the text) |
+| `find_apps` | Filtered catalog: text, storefront, monetization, rating, dates, sort order, cursor paging |
+| `get_app` | App detail: title, description, version and screenshots |
 | `get_app_market` | Price, rating and version in one storefront |
+| `get_app_ranks` | Chart positions today, the 7-day move and the best (Pro: daily series) |
+| `get_app_transfers` | When the app moved between publisher accounts |
+| `get_rating_history` | Daily rating and rating count (3 days free, 30 with Pro) |
+| `get_app_estimates` | 30-day download and revenue estimates (Pro) |
 | `trending_apps` | Top free, paid and grossing charts for a storefront |
 | `get_publisher` | Publisher identity and their apps |
 | `list_tracked_apps` | Apps in your ASO tracker |
@@ -102,6 +108,9 @@ servers, so they cannot use an AppTrack Ninja key yet.
 | `get_tracked_keywords` | Tracked keywords with rank, popularity and difficulty |
 | `get_keyword_history` | Daily rank history for one tracked keyword |
 | `whoami` | The plan on this key and remaining calls this minute |
+
+On the free plan list tools return up to 10 rows and, once the 25 daily calls are used, answer
+with an upgrade note until the next UTC day.
 
 ## Example prompts
 

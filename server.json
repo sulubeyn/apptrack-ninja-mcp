@@ -8,7 +8,7 @@
     "url": "https://github.com/sulubeyn/apptrack-ninja-mcp",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.2.0",
   "remotes": [
     {
       "type": "streamable-http",
@@ -16,8 +16,8 @@
       "headers": [
         {
           "name": "Authorization",
-          "description": "Bearer <key>. Create a key at https://apptrack.ninja/account?tab=mcp (Pro plan).",
-          "isRequired": true,
+          "description": "Bearer <key>, or sign in with OAuth. Create a key at https://apptrack.ninja/account?tab=mcp (free plan: one key and 25 calls a day; Pro: three keys and full limits).",
+          "isRequired": false,
           "isSecret": true
         }
       ]
